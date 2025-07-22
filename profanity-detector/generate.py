@@ -38,7 +38,7 @@ for w in raw_bad:
       bad_words.append(w) 
 
 bad_words = list(set(bad_words))
-for i in range(10): [bad_words.append(sw) for sw in strong_swear]
+#for i in range(10): [bad_words.append(sw) for sw in strong_swear]
 
 # Filter good words
 for w in raw_good:
@@ -48,8 +48,12 @@ for w in raw_good:
 good_words = list(set(good_words))
 
 # Build training dataset
-for w in good_words: all_words.append(w + ',0')
-for w in bad_words: all_words.append(w + ',1')
+#for w in good_words: all_words.append(w + ',0')
+#for w in bad_words: all_words.append(w + ',1')
+for i in range(len(bad_words)):
+  all_words.append(bad_words[i] + ',1')
+  all_words.append(good_words[i] + ',0')
+  all_words.append(good_words[i+len(good_words)//len(bad_words)] + ',0')
 print(f'{len(good_words)} good words, {len(bad_words)} bad words')
 for i in range(3): random.shuffle(all_words)
 

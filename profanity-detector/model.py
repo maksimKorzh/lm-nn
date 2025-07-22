@@ -26,7 +26,7 @@ for line in lines:
   words.append(word.lower())
   labels.append(int(label))
 
-# Build voacabulary
+# Build vocabulary
 chars = sorted(list(set(''.join(words))))
 vocab_size = len(chars)+1
 stoi = {s:i+1 for i,s in enumerate(chars)}
@@ -58,6 +58,7 @@ class LSTM(nn.Module):
       logits = self.fc(hn[-1]).squeeze(1)
       loss = None
       if targets is not None:
-          pos_weight = torch.tensor([20], device=logits.device)
-          loss = F.binary_cross_entropy_with_logits(logits, targets, pos_weight=pos_weight)
+          #pos_weight = torch.tensor([10], device=logits.device)
+          #loss = F.binary_cross_entropy_with_logits(logits, targets, pos_weight=pos_weight)
+          loss = F.binary_cross_entropy_with_logits(logits, targets)
       return logits, loss
