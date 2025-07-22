@@ -1,8 +1,8 @@
 import torch
 from model import *
 
-# Encode all data
-X = torch.tensor([encode_word(w, max_len) for w in words], dtype=torch.long)
+# Encode data
+X = torch.tensor([encode_word(w) for w in words], dtype=torch.long)
 Y = torch.tensor(labels, dtype=torch.float)
 
 # Split data into train/test subsets
@@ -34,19 +34,20 @@ def estimate_loss():
     model.train()
     return out
 
+# Init model
 model = LSTM(vocab_size, n_embd, n_hidden, n_layer).to(device)
 optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
 for iter in range(max_iters):
-  # every once in a while evaluate the loss on train and val sets
+  # Every once in a while evaluate the loss on train and val sets
   if iter % eval_interval == 0 or iter == max_iters - 1:
     losses = estimate_loss()
     print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
 
-  # sample a batch of data
+  # Sample a batch of data
   xb, yb = get_batch('train')
 
-  # evaluate the loss
+  # Evaluate the loss
   logits, loss = model(xb, yb)
   optimizer.zero_grad(set_to_none=True)
   loss.backward()

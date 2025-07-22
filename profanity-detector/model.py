@@ -36,7 +36,7 @@ encode = lambda s: [stoi[c] for c in s]
 decode = lambda l: ''.join([itos[i] for i in l])
 
 # Encode a single word
-def encode_word(w, max_len):
+def encode_word(w):
   encoded = [stoi.get(c, 0) for c in w]
   if len(encoded) < max_len:
     encoded += [0] * (max_len - len(encoded))
