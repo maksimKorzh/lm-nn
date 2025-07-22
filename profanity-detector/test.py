@@ -7,7 +7,7 @@ model = LSTM(vocab_size, n_embd, n_hidden, n_layer).to(device)
 model.load_state_dict(torch.load('profanity_model.pt', map_location=device))
 model.eval()
 m = model.to(device)
-print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
+print(sum(p.numel() for p in m.parameters()), 'parameters')
 
 # Main loop
 print("Type a word to check if it's profanity. Type 'exit' to quit.")
