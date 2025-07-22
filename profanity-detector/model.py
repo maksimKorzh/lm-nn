@@ -10,10 +10,10 @@ batch_size = 64        # how many independent sequences will we process in paral
 n_embd = 128           # embedding size per character
 n_hidden = 64          # size of LSTM hidden state
 n_layer = 1            # number of LSTM layers
-max_iters = 500        # total number of batches trained
+max_iters = 2000       # total number of batches trained
 eval_iters = 200       # number of iterations to evaluate
-eval_interval = 50     # validation loss every
-learning_rate = 0.001  # by how much weights update each iteration?
+eval_interval = 100    # validation print interval
+learning_rate = 0.0001 # by how much weights update each iteration?
 
 # Same results across different platforms
 torch.manual_seed(1337)
@@ -47,15 +47,17 @@ def encode_word(w):
 # Model
 class LSTM(nn.Module):
     def __init__(self, vocab_size, n_embd, n_hidden, n_layer):
-        super().__init__()
-        self.embedding = nn.Embedding(vocab_size, n_embd, padding_idx=0)             # maps chars to vectors, ignores padding
-        self.lstm = nn.LSTM(n_embd, n_hidden, num_layers=n_layer, batch_first=True)  # processes char sequences
-        self.fc = nn.Linear(n_hidden, 1)                                             # outputs single logit
+      super().__init__()
+      self.embedding = nn.Embedding(vocab_size, n_embd, padding_idx=0)             # maps chars to vectors, ignores padding
+      self.lstm = nn.LSTM(n_embd, n_hidden, num_layers=n_layer, batch_first=True)  # processes char sequences
+      self.fc = nn.Linear(n_hidden, 1)                                             # outputs single logit
 
     def forward(self, x, targets=None):
-        x = self.embedding(x)
-        _, (hn, _) = self.lstm(x)
-        logits = self.fc(hn[-1]).squeeze(1)
-        if targets is None: loss = None
-        else: loss = F.binary_cross_entropy_with_logits(logits, targets)
-        return logits, loss
+      x = self.embedding(x)
+      _, (hn, _) = self.lstm(x)
+      logits = self.fc(hn[-1]).squeeze(1)
+      loss = None
+      if targets is not None:
+          pos_weight = torch.tensor([20], device=logits.device)
+          loss = F.binary_cross_entropy_with_logits(logits, targets, pos_weight=pos_weight)
+      return logits, loss
