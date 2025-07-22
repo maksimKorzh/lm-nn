@@ -35,7 +35,7 @@ with open('input.txt') as f:
   for w in [ # unseen data
     'fuck,1', 'f u c k,1', 'FUCK,1', 'fuuck,1', 'f!ck,1', 'fu*k,1', 'sh1t,1', 'sh!t,1', 'b1tch,1',
     'b!tch,1', 'c%nt,1', 'c*nt,1', 'c u n t,1', 'FUCCCKK,1'
-  ]: words.append(w)
+  ]: words.append(w.lower())
     
   for w in words:
     x = torch.tensor(encode_word(w), dtype=torch.long).unsqueeze(0).to(device) # (1, max_len)
