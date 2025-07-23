@@ -52,12 +52,11 @@ print(f"Overall accuracy: {overall_acc:.2f}%")
 # Main loop
 print("Type a word to check if it's profanity. Type 'exit' to quit.")
 while True:
-    word = input("Enter word: ").strip().lower()
-    if word.lower() == 'exit':
-        break
-    x = torch.tensor(encode_word(word), dtype=torch.long).unsqueeze(0).to(device) # (1, max_len)
-    with torch.no_grad():
-        logit, _ = model(x)
-        prob = torch.sigmoid(logit).item()
-        print(prob)
-        print("Profanity" if prob > 0.5 else "Not profanity")
+  word = input("Enter word: ").strip().lower()
+  if word.lower() == 'exit': break
+  x = torch.tensor(encode_word(word), dtype=torch.long).unsqueeze(0).to(device) # (1, max_len)
+  with torch.no_grad():
+    logit, _ = model(x)
+    prob = torch.sigmoid(logit).item()
+    print(prob)
+    print("Profanity" if prob > 0.5 else "Not profanity")
