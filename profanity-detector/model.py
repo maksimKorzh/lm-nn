@@ -32,8 +32,6 @@ vocab_size = len(chars)+1
 stoi = {s:i+1 for i,s in enumerate(chars)}
 stoi['.'] = 0
 itos = {i:s for s,i in stoi.items()}
-encode = lambda s: [stoi[c] for c in s]
-decode = lambda l: ''.join([itos[i] for i in l])
 
 # Encode a single word
 def encode_word(w):

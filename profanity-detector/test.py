@@ -31,13 +31,13 @@ with open('input.txt') as f:
         bad_count += 1
         if prob > threshold: bad_correct += 1
         if prob < threshold:
-          print(f'should be bad:\t{prob:.4f}\t{w.split(",")[0]}')
+          #print(f'should be bad:\t{prob:.4f}\t{w.split(",")[0]}')
           bad_wrong += 1
       if ',0' in w:
         good_count += 1
         if prob < threshold: good_correct += 1
         if prob > threshold:
-          print(f'should be good:\t{prob:.4f}\t{w.split(",")[0]}')
+          #print(f'should be good:\t{prob:.4f}\t{w.split(",")[0]}')
           good_wrong += 1
 
 # Calculate results
