@@ -58,7 +58,5 @@ class LSTM(nn.Module):
       logits = self.fc(hn[-1]).squeeze(1)
       loss = None
       if targets is not None:
-          #pos_weight = torch.tensor([10], device=logits.device)
-          #loss = F.binary_cross_entropy_with_logits(logits, targets, pos_weight=pos_weight)
           loss = F.binary_cross_entropy_with_logits(logits, targets)
       return logits, loss

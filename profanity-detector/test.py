@@ -1,3 +1,4 @@
+# Packages
 import torch
 from model import *
 
@@ -9,6 +10,7 @@ model.eval()
 m = model.to(device)
 print(sum(p.numel() for p in m.parameters()), 'parameters')
 
+# Stat counts
 bad_count = 0
 good_count = 0
 bad_correct = 0
@@ -17,6 +19,7 @@ good_correct = 0
 good_wrong = 0
 threshold = 0.5
 
+# Bulk test
 with open('input.txt') as f:
   words = f.read().splitlines()
   for w in words:
@@ -37,10 +40,10 @@ with open('input.txt') as f:
           print(f'should be good:\t{prob:.4f}\t{w.split(",")[0]}')
           good_wrong += 1
 
+# Calculate results
 good_acc = good_correct / good_count * 100
 bad_acc = bad_correct / bad_count * 100
 overall_acc = (good_correct + bad_correct) / (good_count + bad_count) * 100
-
 print(f"Bad accuracy: {bad_acc:.2f}%")
 print(f"Good accuracy: {good_acc:.2f}%")
 print(f"Overall accuracy: {overall_acc:.2f}%")
@@ -58,4 +61,3 @@ while True:
         prob = torch.sigmoid(logit).item()
         print(prob)
         print("Profanity" if prob > 0.5 else "Not profanity")
-
