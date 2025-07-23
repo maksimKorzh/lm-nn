@@ -38,7 +38,12 @@ for w in raw_bad:
       bad_words.append(w) 
 
 bad_words = list(set(bad_words))
-#for i in range(10): [bad_words.append(sw) for sw in strong_swear]
+[bad_words.append(sw) for sw in strong_swear]
+[bad_words.append(sw.replace('u', '*')) for sw in strong_swear]
+[bad_words.append(sw.replace('u', '%')) for sw in strong_swear]
+[bad_words.append(sw.replace('i', '1')) for sw in strong_swear]
+[bad_words.append(sw.replace('i', '!')) for sw in strong_swear]
+[bad_words.append(sw.replace('a', '@')) for sw in strong_swear]
 
 # Filter good words
 for w in raw_good:
@@ -46,10 +51,12 @@ for w in raw_good:
     good_words.append(w)  
 
 good_words = list(set(good_words))
+for w in ['duck', 'dock', 'buck', 'luck', 'tuck']:
+  good_words.append(w + ',0')
+for w in good_words:
+  if len(w) > 2 and w[1] == 'u' and len(w) < 5: all_words.append(w + ',0')
 
 # Build training dataset
-#for w in good_words: all_words.append(w + ',0')
-#for w in bad_words: all_words.append(w + ',1')
 for i in range(len(bad_words)):
   all_words.append(bad_words[i] + ',1')
   all_words.append(good_words[i] + ',0')
