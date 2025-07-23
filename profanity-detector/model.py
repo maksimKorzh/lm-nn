@@ -31,7 +31,6 @@ chars = sorted(list(set(''.join(words))))
 vocab_size = len(chars)+1
 stoi = {s:i+1 for i,s in enumerate(chars)}
 stoi['.'] = 0
-itos = {i:s for s,i in stoi.items()}
 
 # Encode a single word
 def encode_word(w):
