@@ -44,17 +44,17 @@ def encode_word(w):
 
 # Model
 class LSTM(nn.Module):
-    def __init__(self, vocab_size, n_embd, n_hidden, n_layer):
-      super().__init__()
-      self.embedding = nn.Embedding(vocab_size, n_embd, padding_idx=0)             # maps chars to vectors, ignores padding
-      self.lstm = nn.LSTM(n_embd, n_hidden, num_layers=n_layer, batch_first=True)  # processes char sequences
-      self.fc = nn.Linear(n_hidden, 1)                                             # outputs single logit
+  def __init__(self, vocab_size, n_embd, n_hidden, n_layer):
+    super().__init__()
+    self.embedding = nn.Embedding(vocab_size, n_embd, padding_idx=0)             # maps chars to vectors, ignores padding
+    self.lstm = nn.LSTM(n_embd, n_hidden, num_layers=n_layer, batch_first=True)  # processes char sequences
+    self.fc = nn.Linear(n_hidden, 1)                                             # outputs single logit
 
-    def forward(self, x, targets=None):
-      x = self.embedding(x)
-      _, (hn, _) = self.lstm(x)
-      logits = self.fc(hn[-1]).squeeze(1)
-      loss = None
-      if targets is not None:
-          loss = F.binary_cross_entropy_with_logits(logits, targets)
-      return logits, loss
+  def forward(self, x, targets=None):
+    x = self.embedding(x)
+    _, (hn, _) = self.lstm(x)
+    logits = self.fc(hn[-1]).squeeze(1)
+    loss = None
+    if targets is not None:
+      loss = F.binary_cross_entropy_with_logits(logits, targets)
+    return logits, loss
