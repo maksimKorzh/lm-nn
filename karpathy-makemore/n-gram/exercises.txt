@@ -9,6 +9,10 @@ E02: split up the dataset randomly into 80% train set, 10% dev set, 10% test set
      Train the bigram and trigram models only on the training set. Evaluate them
      on dev and test splits. What can you see?
 
+ME:  Loss on train data: 2.4906301498413086
+     Loss on dev data: 2.4839537143707275
+     Loss on test data: 2.492926597595215
+
 E03: use the dev set to tune the strength of smoothing (or regularization) for the
      trigram model - i.e. try many possibilities and see which one works best based
      on the dev set loss. What patterns can you see in the train and dev set loss as
