@@ -1,6 +1,9 @@
 E01: train a trigram language model, i.e. take two characters as an input to predict
      the 3rd one. Feel free to use either counting or a neural net. Evaluate the loss;
      Did it improve over a bigram model?
+     
+ME:  trigram-counts loss is 2.13
+     trigram-nn loss is 2.27
 
 E02: split up the dataset randomly into 80% train set, 10% dev set, 10% test set.
      Train the bigram and trigram models only on the training set. Evaluate them
