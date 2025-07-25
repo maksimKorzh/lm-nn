@@ -32,7 +32,7 @@ ME:  Regularization strength    Train loss     Dev loss    Test loss
                          0.3          2.36         3.26
                          0.5          2.41         3.20
                          0.9          2.49         3.14
-                         1.5          2.58         3.10
+                         1.5          2.58         3.10    but this is a BAD choice
 
                                                                 3.09
 
@@ -45,8 +45,14 @@ ME:  Regularization strength    Train loss     Dev loss    Test loss
 E04: we saw that our 1-hot vectors merely select a row of W, so producing these
      vectors explicitly feels wasteful. Can you delete our use of F.one_hot in
      favor of simply indexing into rows of W?
+     
+ME:  Yes, but changing regularization strength back to 0.1 is crucial
+     because otherwise the model would collapse.
 
 E05: look up and use F.cross_entropy instead. You should achieve the same result.
      Can you think of why we'd prefer to use F.cross_entropy instead?
+
+ME:  I have achieved the same result, cross entropy is a one liner, I think we
+     prefer it for being a shortcut
 
 E06: meta-exercise! Think of a fun/interesting exercise and complete it.
