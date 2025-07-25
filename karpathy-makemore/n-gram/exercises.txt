@@ -8,16 +8,39 @@ ME:  trigram-counts loss is 2.13
 E02: split up the dataset randomly into 80% train set, 10% dev set, 10% test set.
      Train the bigram and trigram models only on the training set. Evaluate them
      on dev and test splits. What can you see?
+ 
+ME:  Bigram:     Loss on train data: 2.4906301498413086
+                 Loss on dev data: 2.4839537143707275
+                 Loss on test data: 2.492926597595215
 
-ME:  Loss on train data: 2.4906301498413086
-     Loss on dev data: 2.4839537143707275
-     Loss on test data: 2.492926597595215
+     Trigram:    Loss on train data: 2.234915018081665
+                 Loss on dev data: 3.499814748764038
+                 Loss on test data: 3.486729383468628
+
+     Conclusion: the more complex model it the bigger gap
+                 between predicting seen vs unseen data
 
 E03: use the dev set to tune the strength of smoothing (or regularization) for the
      trigram model - i.e. try many possibilities and see which one works best based
      on the dev set loss. What patterns can you see in the train and dev set loss as
      you tune this strength? Take the best setting of the smoothing and evaluate on
      the test set once and at the end. How good of a loss do you achieve?
+
+ME:  Regularization strength    Train loss     Dev loss    Test loss
+                        0.01          2.23         3.49
+                         0.1          2.29         3.38
+                         0.3          2.36         3.26
+                         0.5          2.41         3.20
+                         0.9          2.49         3.14
+                         1.5          2.58         3.10
+
+                                                                3.09
+
+     Conclusion: The greater the regularization, the higher the training loss
+                 and the lower the dev loss. The best test loss achieved is 3.09
+                 The model quickly overfits on the training data but lacks
+                 generalization, hence the test loss remains significantly higher
+                 than the training loss.
 
 E04: we saw that our 1-hot vectors merely select a row of W, so producing these
      vectors explicitly feels wasteful. Can you delete our use of F.one_hot in

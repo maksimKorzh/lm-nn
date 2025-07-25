@@ -65,7 +65,8 @@ def train():
     # 0.01*(W**2).mean() is a loss regularization
     # 0.01 is regularization strength, it's like controlling N + how much in array mode
     # It's a gravity force that pushes W to be 0
-    loss = -probs[torch.arange(num), Y_train].log().mean() + 0.01*(W**2).mean()
+    regularization_strength = 1.5
+    loss = -probs[torch.arange(num), Y_train].log().mean() + regularization_strength*(W**2).mean()
     print(f'Loss on train data: {loss.item()}')
     
     # Backward pass
