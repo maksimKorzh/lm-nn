@@ -1,2 +1,1 @@
-# lm-nn
-Language Models with Neural Nets
+# Following Andrej Karpathy tutorials
